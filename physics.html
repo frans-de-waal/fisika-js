@@ -1,0 +1,33 @@
+<style>
+  body {
+    background: #1D1D1D;
+  }
+  canvas {
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #999;
+    background: #F0F0F0;
+  }
+</style>
+
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="./vector.js"></script>
+    <!-- <script type="text/javascript" src="./ballFalling.js"></script> -->
+    <script type="text/javascript" src="./arc.js"></script>
+    <title>Physics simulation</title>
+  </head>
+  <body>
+    <canvas id="canvas" height="900" width="800"></canvas>
+  </body>
+</html>
+
+<script>
+  // see if DOM is already available
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    // call on next available tick
+    setTimeout(physics, 1);
+  } else {
+    document.addEventListener("DOMContentLoaded", physics);
+  }
+</script>
