@@ -1,0 +1,73 @@
+<style>
+  body {
+    background: #1F1F1F;
+    color: #EEE;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  canvas {
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #999;
+    background: #F0F0F0;
+    border-radius: 5px;
+  }
+  .button {
+    color: #EEE;
+    text-decoration: none;
+  }
+  .button:hover {
+    text-decoration: underline;
+  }
+  .red {
+    color: red;
+  }
+  .green {
+    color: green;
+  }
+  .blue {
+    color: blue;
+  }
+  .purple {
+    color: purple;
+  }
+  .orange {
+    color: orange;
+  }
+</style>
+
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="./Vector.js"></script>
+    <!-- <script type="text/javascript" src="./ballFalling.js"></script> -->
+    <script type="text/javascript" src="./ballInTheWind.js"></script>
+    <title>Physics simulation</title>
+  </head>
+  <body>
+    <h1>
+      Physics simulation - Ball in the Wind
+    </h1>
+    <p>
+      Simulate a <span class="red">ball</span> falling (<span class="green">gravity</span>) though the air (<span class="orange">drag</span>) while the <span class="blue">wind</span> is blowing.
+    </p>
+    <p>
+      <span class="purple">Interact</span> with the ball by moving the mouse.
+    </p>
+    <p>
+      Click to reset.
+    </p>
+    <canvas id="canvas" height="600" width="800"></canvas>
+    <a class="button" href="/fisika-js/index.html">
+      < Back
+    </a>
+  </body>
+</html>
+
+<script>
+  // see if DOM is already available
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    // call on next available tick
+    physics && setTimeout(physics, 1);
+  } else {
+    physics && document.addEventListener("DOMContentLoaded", physics);
+  }
+</script>
