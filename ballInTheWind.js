@@ -2,6 +2,7 @@
 let WIDTH = 0;
 let HEIGHT = 0;
 let CTX = null;
+let pMouse = new Vector(0, 0);
 // Simulation
 const DELTA_TIME = 0.02; // simulation time step (s)
 // The ball
@@ -48,8 +49,8 @@ function drawVector(vector, position, color = 'blue') {
   CTX.stroke();
 }
 
-function drawBall(x, y) {
-  CTX.fillStyle = 'red';
+function drawSphere(x, y, color = 'red') {
+  CTX.fillStyle = color;
   CTX.beginPath();
   CTX.arc(x, y, RADIUS, 0, Math.PI * 2, true);
   CTX.fill();
@@ -75,8 +76,14 @@ function loop() {
   // draw after one time step
   CTX.clearRect(0, 0, WIDTH, HEIGHT);
   // draw the ball
-  drawBall(pBall.x(), pBall.y());
+  drawSphere(pBall.x(), pBall.y());
   drawVector(vBall, pBall, 'red');
+  // 
+  drawSphere(pMouse.x(), pMouse.y(), 'cyan');
+
+  const mouseToBall = pBall.subtract(pMouse);
+  const theForce = mouseToBall.normal().multiply(Math.min(100, mouseToBall.size()));
+  drawVector(theForce, pMouse, 'cyan');
   // draw the forces
   drawVector(F_DRAG, pBall, 'black');
   drawVector(F_WIND.multiply(LEGEND_SIZE), P_LEGEND, 'blue');
@@ -84,9 +91,15 @@ function loop() {
 }
 
 function physics() {
-  CTX = document.getElementById('canvas').getContext('2d');
-  WIDTH = document.getElementById('canvas').getAttribute('width');
-  HEIGHT = document.getElementById('canvas').getAttribute('height');
+  const canvas = document.getElementById('canvas');
+  CTX = canvas.getContext('2d');
+  WIDTH = canvas.getAttribute('width');
+  HEIGHT = canvas.getAttribute('height');
+
+  canvas.addEventListener('mousemove', e => {
+    const canvasRect = canvas.getBoundingClientRect();
+    pMouse = new Vector(e.clientX - canvasRect.left, e.clientY - canvasRect.top);
+  });
 
   setInterval(loop, DELTA_TIME * 1000);
   // reset
