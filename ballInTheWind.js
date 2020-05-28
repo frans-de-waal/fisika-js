@@ -1,3 +1,8 @@
+/**
+ * Repo: https://github.com/frans-de-waal/fisika-js
+ * Live demo: https://frans-de-waal.github.io/fisika-js/
+ */
+
 // Canvas
 let WIDTH = 0;
 let HEIGHT = 0;
