@@ -1,0 +1,54 @@
+:root {
+  --color-primary:#339989;
+  --color-secondary:#B74F6F;
+  --color-background:#131515;
+  --color-font-light:#FFFAFB;
+  --color-font-dark:#2B2C28;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../assets/fonts/notosans-regular-webfont.eot');
+  src: url('../assets/fonts/notosans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../assets/fonts/notosans-regular-webfont.woff2') format('woff2'),
+       url('../assets/fonts/notosans-regular-webfont.woff') format('woff'),
+       url('../assets/fonts/notosans-regular-webfont.ttf') format('truetype'),
+       url('../assets/fonts/notosans-regular-webfont.svg#noto_sansregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-font-light);
+  font-family: 'Noto Sans', sans-serif;
+}
+.button {
+  text-decoration: none;
+  color: var(--color-font-light);
+}
+.button:hover {
+  text-decoration: underline;
+}
+canvas {
+  display: block;
+  margin: 10px auto;
+  border: 1px solid #999;
+  background: #F0F0F0;
+  border-radius: 5px;
+}
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+.blue {
+  color: blue;
+}
+.purple {
+  color: purple;
+}
+.orange {
+  color: orange;
+}
