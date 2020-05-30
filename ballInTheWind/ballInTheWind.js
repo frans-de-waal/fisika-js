@@ -36,12 +36,12 @@ const P_LEGEND = new Vector(700, 100);
 const LEGEND_SIZE = 10;
 
 function drawVector(vector, position, color = 'blue') {
-  const headlen = vector.size() * 0.25;
+  const headlen = vector.size * 0.25;
   const end = position.add(vector);
-  const fromx = position.x();
-  const fromy = position.y();
-  const tox = end.x();
-  const toy = end.y();
+  const fromx = position.x;
+  const fromy = position.y;
+  const tox = end.x;
+  const toy = end.y;
   const dx = tox - fromx;
   const dy = toy - fromy;
   const angle = Math.atan2(dy, dx);
@@ -67,7 +67,7 @@ function loop() {
   // calculate attributes of the ball after one time step
   // force
   const mouseToBall = pBall.subtract(pMouse);
-  const F_MOUSE = mouseToBall.normal().multiply(F_GRAVITY.size());
+  const F_MOUSE = mouseToBall.normal.multiply(F_GRAVITY.size);
   const F_DRAG = vBall.power(2).multiply(-0.5 * RHO * C_D * A); // https://en.wikipedia.org/wiki/Drag_equation
   const F_BALL = FORCES.concat(F_DRAG, F_MOUSE).reduce((total, f) => total.add(f), new Vector(0, 0));
   // acceleration
@@ -84,11 +84,11 @@ function loop() {
   // draw after one time step
   CTX.clearRect(0, 0, WIDTH, HEIGHT);
   // draw the ball
-  drawSphere(pBall.x(), pBall.y());
+  drawSphere(pBall.x, pBall.y);
   drawVector(vBall, pBall, 'red');
   // 
-  drawSphere(pMouse.x(), pMouse.y(), 'purple');
-  const theForce = mouseToBall.normal().multiply(Math.min(100, mouseToBall.size()));
+  drawSphere(pMouse.x, pMouse.y, 'purple');
+  const theForce = mouseToBall.normal.multiply(Math.min(100, mouseToBall.size));
   drawVector(theForce, pMouse, 'purple');
   // draw the forces
   drawVector(F_DRAG, pBall, 'orange');
