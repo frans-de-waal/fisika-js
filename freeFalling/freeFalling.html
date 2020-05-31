@@ -7,25 +7,26 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../site.webmanifest">
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <!-- <link rel="preload" href="../assets/fonts/notosans-regular-webfont.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="../assets/fonts/notosans-regular-webfont.woff" as="font" type="font/woff" crossorigin="anonymous">
     <link rel="preload" href="../assets/fonts/notosans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="../assets/fonts/notosans-regular-webfont.ttf" as="font" type="font/ttf" crossorigin="anonymous"> -->
+    <link rel="preload" href="../assets/fonts/notosans-regular-webfont.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#339989"/>
-    <meta name="Description" content="Physics simulations - Collision">
-    <meta name="og:title" property="og:title" content="Physics simulations - Collision">
+    <meta name="Description" content="Physics simulations - Free falling objects">
+    <meta name="og:title" property="og:title" content="Physics simulations - Free falling objects">
     <script type="text/javascript" src="../js/Vector.js"></script>
+    <script type="text/javascript" src="../js/Shapes.js"></script>
     <script type="text/javascript" src="../js/RigidBody.js"></script>
     <script type="text/javascript" src="../js/Scene.js"></script>
-    <script type="text/javascript" src="./collision.js"></script>
-    <title>Collision - Physics simulations</title>
+    <script type="text/javascript" src="./freeFalling.js"></script>
+    <title>Free falling objects - Physics simulations</title>
   </head>
   <body>
     <h1>
-      Physics simulations - Collision
+      Physics simulations - Free falling objects
     </h1>
-    <p>Simulate collisions (WIP).</p>
-    <canvas id="canvas" height="400" width="800"></canvas>
+    <p>Simulate free falling objects, in the presence of wind and taking into account the atmospheric drag.</p>
+    <canvas id="canvas" height="500" width="700"></canvas>
     <a class="button" href="../index.html">
       < Back
     </a>
@@ -36,8 +37,8 @@
   // see if DOM is already available
   if (document.readyState === "complete" || document.readyState === "interactive") {
     // call on next available tick
-    physics && setTimeout(physics, 1);
+    run && setTimeout(run, 1);
   } else {
-    physics && document.addEventListener("DOMContentLoaded", physics);
+    run && document.addEventListener("DOMContentLoaded", run);
   }
 </script>
