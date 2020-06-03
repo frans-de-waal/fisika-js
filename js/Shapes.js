@@ -27,11 +27,11 @@ class Shape {
   /**
    * Draw this Shape on the context at the given position.
    * 
-   * @param {} context An HTML canvas 2D context.
+   * @param {Scene} scene A Scene to draw this shape on.
    * @param {Vector} position A position Vector.
    */
-  draw(context, position) {
-    // nope
+  draw(scene, position) {
+    console.log('nothing to draw');
   }
 }
 
@@ -43,7 +43,7 @@ class Sphere extends Shape {
    * 
    * @constructor
    * 
-   * @param {number} radius The radius of the Sphere.
+   * @param {number} radius The radius of the Sphere (m).
    * @param {string} color The color of the Sphere.
    */
   constructor(radius, color) {
@@ -57,19 +57,20 @@ class Sphere extends Shape {
    * @returns {number} The frontal area of this Sphere.
    */
   get area() {
-    return Math.PI * this.radius ** 2 / 100000;
+    return Math.PI * this.radius ** 2;
   }
 
   /**
    * Draw this Sphere on the context at the given position.
    * 
-   * @param {} context An HTML canvas 2D context.
+   * @param {Scene} scene A Scene to draw this shape on.
    * @param {Vector} position A position Vector.
    */
-  draw(context, position) {
+  draw(scene, position) {
+    const { context, scale } = scene;
     context.fillStyle = this.color;
     context.beginPath();
-    context.arc(position.x, position.y, this.radius, 0, Math.PI * 2, true);
+    context.arc(position.x, position.y, this.radius * scale, 0, Math.PI * 2, true);
     context.fill();
     context.closePath();
   }

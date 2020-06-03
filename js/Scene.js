@@ -1,88 +1,86 @@
-/**
- * A 2D scene.
- * 
- * A 2-dimensional scene with and environment and entities.
- * 
- * @class Scene 
- */
 class Scene {
-  canvas;
-  forces;
-  entities;
-  /**
-   * Density of the ambient material of this scene, defaults to the density of air.
-   * 
-   * @see https://en.wikipedia.org/wiki/Density for other materials.
-   */
-  density;
+  context;
+  width = 0;
+  height = 0;
+  delta = 0;
+  progressEntity = () => { };
+  entities = [];
+  interval;
+  scale = 50; // pixels per meter
+  gridSize = 1; // meters
 
-  /**
-   * Create a new 2D Scene object.
-   * 
-   * Create and initialise a new Scene by defining it's canvas, forces, entities and ambient density.
-   * 
-   * @constructor
-   * 
-   * @param {HTMLElement} canvas The HTML canvas element that the scene will be displayed on.
-   * @param {Array.<Vector>} forces The forces of the scene.
-   * @param {Array.<RigidBody>} entities The entities in the scene.
-   * @param {number} density Density of the ambient material of the scene.
-   */
-  constructor(canvas, forces, entities, density = 1.2) {
-    this.canvas = canvas;
-    this.forces = forces;
+  constructor(id, delta, progressEntity, entities, scale = 50, gridSize = 1) {
+    const canvas = document.getElementById(id);
+    this.context = canvas.getContext('2d');
+    this.width = canvas.getAttribute('width');
+    this.height = canvas.getAttribute('height');
+    this.delta = delta;
+    this.progressEntity = progressEntity;
     this.entities = entities;
-    this.density = density;
+    this.scale = scale;
+    this.gridSize = gridSize;
   }
 
-  get context() { return this.canvas.getContext('2d'); }
-
-  get width() { return this.canvas.getAttribute('width'); }
-
-  get height() { return this.canvas.getAttribute('height'); }
-
-  /**
-   * Progress a specific entity wihin this scene.
-   * Update the velocity and position of the entity.
-   * 
-   * @param {RigidBody} entity The entity to progress.
-   * @param {number} delta The time step to pregress the entity by.
-   */
-  progressEntity(entity, delta) {
-    // forces
-    const dragForce = entity.drag(this.density);
-    const totalForce = this.forces.concat(dragForce).reduce((total, f) => total.add(f), new Vector(0, 0));
-    // acceleration
-    const a = totalForce.multiply(1 / entity.mass);
-    // change in velocity
-    const dV = a.multiply(delta);
-    // new velocity
-    entity.velocity = entity.velocity.add(dV);
-    // change in position
-    const dP = entity.velocity.multiply(delta);
-    // new position
-    entity.position = entity.position.add(dP);
+  drawGrid = () => {
+    const { context, width, height, scale, gridSize } = this;
+    const size = gridSize * scale; // pixels
+    context.beginPath();
+    for (var x = size; x <= width; x += size) {
+      context.moveTo(x, 0);
+      context.lineTo(x, height);
+    }
+    for (var x = size; x <= height; x += size) {
+      context.moveTo(0, x);
+      context.lineTo(width, x);
+    }
+    context.strokeStyle = '#DDD';
+    context.stroke();
   }
 
-  /**
-   * Progress the scene by updating all the entities.
-   * 
-   * @param {number} delta The time step to progress the scene by.
-   */
-  progress(delta) {
-    this.entities.forEach(entity => this.progressEntity(entity, delta));
+  drawScale = () => {
+    const { context, width, height, scale, gridSize } = this;
+    const size = gridSize * scale; // pixels
+    const color = '#E0E';
+    // line
+    context.beginPath();
+    context.moveTo(size, height - 30);
+    context.lineTo(size, height - 20);
+    context.lineTo(size * 2, height - 20);
+    context.lineTo(size * 2, height - 30);
+    context.strokeStyle = color;
+    context.stroke();
+    // text
+    context.fillStyle = color;
+    context.font = `18px 'Noto Sans', sans-serif`;
+    context.fillText(`${gridSize} m`, size * 1.5, height - 30);
+    context.textBaseline = 'middle';
+    context.textAlign = "center";
   }
 
-  drawSphere(entity, color = 'red') {
-    this.context.fillStyle = color;
-    this.context.beginPath();
-    this.context.arc(entity.position.x, entity.position.y, 10, 0, Math.PI * 2, true);
-    this.context.fill();
-    this.context.closePath();
+  draw = () => {
+    const { context, width, height, drawGrid, drawScale, entities } = this;
+    context.clearRect(0, 0, width, height);
+    drawGrid();
+    drawScale();
+    entities.forEach(entity => entity.draw(this));
   }
 
-  draw() {
-    this.context.clearRect(0, 0, this.width, this.height);
-    this.entities.forEach(entity => this.drawSphere(entity));
+  progress = () => {
+    const { entities, progressEntity } = this;
+    entities.forEach(entity => progressEntity(entity));
+  }
+
+  loop = () => {
+    try {
+      this.progress();
+      this.draw();
+    } catch (error) {
+      clearInterval(this.interval);
+      throw error;
+    }
+  }
+
+  start = () => {
+    this.interval = setInterval(this.loop, this.delta * 1000);
   }
 }
