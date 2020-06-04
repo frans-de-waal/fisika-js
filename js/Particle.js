@@ -1,5 +1,5 @@
 /** 
- * A 2D particle object with mass, position and velocity.
+ * A 2D particle object with mass, shape, position and velocity.
  * 
  * @class 
  */
@@ -10,19 +10,17 @@ class Particle {
   velocity;
 
   /**
-   * Create a new Particle object.
-   * 
-   * Create and initialise a new Particle by defining it's mass,
-   * and optionally it's position and velocity.
+   * Create and initialise a new Particle by defining it's mass and shape,
+   * and optionally it's initial position and velocity.
    * 
    * @constructor
    * 
    * @param {number} mass Mass of the Particle (kg).
    * @param {Shape} shape The shape of the Particle.
-   * @param {Vector} position Initial position of the Particle.
-   * @param {Vector} velocity Initial velocity of the Particle.
+   * @param {Position} position Initial position of the Particle.
+   * @param {Velocity} velocity Initial velocity of the Particle.
    */
-  constructor(mass, shape, position = new Vector(0, 0), velocity = new Vector(0, 0)) {
+  constructor(mass, shape, position = new Position(0, 0), velocity = new Velocity(0, 0)) {
     this.mass = mass;
     this.shape = shape;
     this.position = position;
@@ -30,8 +28,6 @@ class Particle {
   }
 
   /**
-   * String representation of a Particle.
-   * 
    * Return a string representation of properties of a Particle.
    * 
    * @returns {string} String representation of properties of a Particle
@@ -51,9 +47,12 @@ class Particle {
    * @see https://en.wikipedia.org/wiki/Drag_equation
    * 
    * @param {number} density The density of the scene material.
-   * @returns {Vector} The drag force for this Particle in the given scene material.
+   * @returns {Force} The drag force for this Particle in the given scene material.
    */
-  drag = density => this.velocity.power(2).multiply(-0.5 * density * this.shape.dragCoefficient * this.shape.area);
+  drag = density => {
+    const vector = this.velocity.power(2).multiply(-0.5 * density * this.shape.dragCoefficient * this.shape.area);
+    return new Force(vector.x, vector.y);
+  }
 
   /**
    * Draw this Particle on a scene.

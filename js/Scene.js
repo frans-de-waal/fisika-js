@@ -1,8 +1,9 @@
 class Scene {
+  canvas;
   context;
   width = 0;
   height = 0;
-  delta = 0;
+  delta = 0.02;
   progressEntity = () => { };
   entities = [];
   interval;
@@ -10,10 +11,10 @@ class Scene {
   gridSize = 1; // meters
 
   constructor(id, delta, progressEntity, entities, scale = 50, gridSize = 1) {
-    const canvas = document.getElementById(id);
-    this.context = canvas.getContext('2d');
-    this.width = canvas.getAttribute('width');
-    this.height = canvas.getAttribute('height');
+    this.canvas = document.getElementById(id);
+    this.context = this.canvas.getContext('2d');
+    this.width = this.canvas.getAttribute('width');
+    this.height = this.canvas.getAttribute('height');
     this.delta = delta;
     this.progressEntity = progressEntity;
     this.entities = entities;
@@ -52,9 +53,29 @@ class Scene {
     // text
     context.fillStyle = color;
     context.font = `18px 'Noto Sans', sans-serif`;
-    context.fillText(`${gridSize} m`, size * 1.5, height - 30);
     context.textBaseline = 'middle';
-    context.textAlign = "center";
+    context.textAlign = 'center';
+    context.fillText(`${gridSize} m`, size * 1.5, height - 30);
+  }
+
+  drawVector(vector, position, color = 'blue') {
+    const headlen = vector.size * 0.25;
+    const end = position.add(vector);
+    const fromx = position.x;
+    const fromy = position.y;
+    const tox = end.x;
+    const toy = end.y;
+    const dx = tox - fromx;
+    const dy = toy - fromy;
+    const angle = Math.atan2(dy, dx);
+    this.context.strokeStyle = color;
+    this.context.beginPath();
+    this.context.moveTo(fromx, fromy);
+    this.context.lineTo(tox, toy);
+    this.context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+    this.context.moveTo(tox, toy);
+    this.context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+    this.context.stroke();
   }
 
   draw = () => {
@@ -81,6 +102,11 @@ class Scene {
   }
 
   start = () => {
+    this.draw();
     this.interval = setInterval(this.loop, this.delta * 1000);
+  }
+
+  stop = () => {
+    clearInterval(this.interval);
   }
 }

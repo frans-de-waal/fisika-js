@@ -28,7 +28,7 @@ class Shape {
    * Draw this Shape on the context at the given position.
    * 
    * @param {Scene} scene A Scene to draw this shape on.
-   * @param {Vector} position A position Vector.
+   * @param {Position} position A position Vector.
    */
   draw(scene, position) {
     console.log('nothing to draw');
@@ -64,13 +64,13 @@ class Sphere extends Shape {
    * Draw this Sphere on the context at the given position.
    * 
    * @param {Scene} scene A Scene to draw this shape on.
-   * @param {Vector} position A position Vector.
+   * @param {Position} position A position Vector.
    */
   draw(scene, position) {
     const { context, scale } = scene;
     context.fillStyle = this.color;
     context.beginPath();
-    context.arc(position.x, position.y, this.radius * scale, 0, Math.PI * 2, true);
+    context.arc(position.x * scale, position.y * scale, this.radius * scale, 0, Math.PI * 2, true);
     context.fill();
     context.closePath();
   }

@@ -5,16 +5,16 @@ function run() {
   const redBall = new Sphere(0.10, 'red');
   const greenBall = new Sphere(0.15, 'green');
   scene.entities = [
-    new Particle(4, redBall, new Vector(scene.width / 3, greenBall.radius)),
-    new Particle(14, greenBall, new Vector(scene.width / 3 * 2, greenBall.radius)),
+    new Particle(4, redBall, new Position(scene.width / 3, greenBall.radius)),
+    new Particle(14, greenBall, new Position(scene.width / 3 * 2, greenBall.radius)),
   ];
-  const gravity = new Vector(0, 9.81);
-  const wind = new Vector(-10, 0);
+  const gravity = new Acceleration(0, 9.81);
+  const wind = new Force(-10, 0);
   const density = 1.2;
   scene.progressEntity = (entity) => {
     // forces
     const drag = entity.drag(density);
-    const totalForce = [wind, drag].reduce((total, f) => total.add(f), new Vector(0, 0));
+    const totalForce = [wind, drag].reduce((total, f) => total.add(f), new Force(0, 0));
     // acceleration
     const a = totalForce.multiply(1 / entity.mass).add(gravity);
     // change in velocity
