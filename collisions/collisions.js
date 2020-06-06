@@ -1,7 +1,3 @@
-function addBall(scene) {
-
-}
-
 function run() {
   const bounciness = 0.9;
   const density = 1.2;

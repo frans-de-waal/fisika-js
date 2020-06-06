@@ -1,25 +1,35 @@
-class Scene {
+export default class Scene {
   canvas;
   context;
   width = 0;
   height = 0;
   delta = 0.02;
-  progressEntity = () => { };
+  progressEntity = entity => {
+    // forces
+    const totalForce = new Force(0, 0);
+    // acceleration
+    const a = totalForce.multiply(1 / entity.mass)
+      // assume gravity
+      .add(new Acceleration(0, 9.81));
+    // change in velocity
+    const dV = a.multiply(this.delta);
+    // new velocity
+    entity.velocity = entity.velocity.add(dV);
+    // change in position
+    const dP = entity.velocity.multiply(this.delta);
+    // new position
+    entity.position = entity.position.add(dP);
+  };
   entities = [];
   interval;
   scale = 50; // pixels per meter
   gridSize = 1; // meters
 
-  constructor(id, delta, progressEntity, entities, scale = 50, gridSize = 1) {
+  constructor(id) {
     this.canvas = document.getElementById(id);
     this.context = this.canvas.getContext('2d');
     this.width = this.canvas.getAttribute('width');
     this.height = this.canvas.getAttribute('height');
-    this.delta = delta;
-    this.progressEntity = progressEntity;
-    this.entities = entities;
-    this.scale = scale;
-    this.gridSize = gridSize;
   }
 
   drawGrid = () => {
@@ -88,7 +98,7 @@ class Scene {
 
   progress = () => {
     const { entities, progressEntity } = this;
-    entities.forEach(entity => progressEntity(entity));
+    entities.filter(entity => !entity.fixed).forEach(progressEntity);
   }
 
   loop = () => {
