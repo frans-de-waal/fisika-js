@@ -1,3 +1,4 @@
+export { default as Acceleration } from './Acceleration.js';
 export { default as Force } from './Force.js';
 export { default as Momentum } from './Momentum.js';
 export { default as Particle } from './Particle.js';

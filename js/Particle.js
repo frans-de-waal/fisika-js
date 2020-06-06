@@ -1,3 +1,7 @@
+import Position from './Position.js';
+import Velocity from './Velocity.js';
+import Force from './Force.js';
+
 /**
  * A 2D particle object with mass, shape, position and velocity.
  *

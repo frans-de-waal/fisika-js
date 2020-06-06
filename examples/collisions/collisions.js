@@ -1,4 +1,13 @@
-function run() {
+import {
+  Acceleration,
+  Particle,
+  Position,
+  Scene,
+  Sphere,
+  Velocity,
+} from '/js/index.js';
+
+export default function run() {
   const bounciness = 0.9;
   const density = 1.2;
   let mouse = new Position(0, 0);
@@ -71,8 +80,6 @@ function run() {
   });
   scene.canvas.addEventListener('mouseup', event => {
     if (dragging) {
-      const canvasRect = scene.canvas.getBoundingClientRect();
-      const mouseEnd = new Position(event.clientX - canvasRect.left, event.clientY - canvasRect.top);
       dragging = false;
       scene.entities.push(new Particle(
         1,
