@@ -1,3 +1,6 @@
+import Force from './Force.js';
+import Acceleration from './Acceleration.js';
+
 export default class Scene {
   canvas;
   context;

@@ -1,3 +1,5 @@
+import Vector from './Vector.js';
+
 export default class Acceleration extends Vector {
   /**
    * Get the string representation of this Acceleration Vector.
