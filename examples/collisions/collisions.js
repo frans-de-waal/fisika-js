@@ -62,7 +62,6 @@ export default function run() {
     scene.drawGrid();
     scene.drawScale();
     scene.entities.forEach(entity => entity.draw(scene));
-    // console.log(`mouse: ${mouse}`);
     if (dragging) {
       scene.drawVector(mouse.subtract(mouseStart), mouseStart);
     }

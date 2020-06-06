@@ -28,8 +28,15 @@ body {
   text-decoration: none;
   color: var(--color-font-light);
 }
-.button:hover {
-  text-decoration: underline;
+.button>div {
+  border: 1px var(--color-font-light) solid;
+  border-radius: 3px;
+  margin: 5px 0px;
+  padding: 0px 15px;
+}
+.button>div:hover {
+  background-color: var(--color-primary);
+  color: var(--color-font-dark);
 }
 canvas {
   display: block;
