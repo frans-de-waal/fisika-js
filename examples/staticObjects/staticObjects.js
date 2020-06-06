@@ -1,4 +1,13 @@
-function run() {
+import {
+  Box,
+  Particle,
+  Position,
+  Scene,
+  Sphere,
+  Velocity,
+} from '/js/index.js';
+
+export default function run() {
   const scene = new Scene('canvas');
   scene.entities = [
     // the environment

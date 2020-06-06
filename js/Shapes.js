@@ -1,3 +1,5 @@
+import Position from './Position.js';
+
 export default class Shape {
   dragCoefficient;
   color

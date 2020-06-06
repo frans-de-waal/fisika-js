@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <link rel="stylesheet" type="text/css" href="../css/styles.css">
+  <!-- <link rel="preload" href="../assets/fonts/notosans-regular-webfont.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="../assets/fonts/notosans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../assets/fonts/notosans-regular-webfont.ttf" as="font" type="font/ttf" crossorigin="anonymous"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#339989" />
+  <meta name="Description" content="Physics simulations - Collisions">
+  <meta name="og:title" property="og:title" content="Physics simulations - Collisions">
+  <script type="text/javascript" src="../js/Vector.js"></script>
+  <script type="text/javascript" src="../js/Shapes.js"></script>
+  <script type="text/javascript" src="../js/Particle.js"></script>
+  <script type="text/javascript" src="../js/Scene.js"></script>
+  <script type="text/javascript" src="./collisions.js"></script>
+  <title>Collisions - Physics simulations</title>
+</head>
+
+<body>
+  <h1>
+    Physics simulations - Collisions
+  </h1>
+  <p>Simulate collisions (WIP). Click and drag to add more balls!</p>
+  <canvas id="canvas" height="500" width="700"></canvas>
+  <a class="button" href="../index.html">
+    < Back </a>
+</body>
+
+</html>
+
+<script>
+  // see if DOM is already available
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    // call on next available tick
+    run && setTimeout(run, 1);
+  } else {
+    run && document.addEventListener("DOMContentLoaded", run);
+  }
+</script>
