@@ -1,6 +1,7 @@
 import Position from './Position.js';
 import Velocity from './Velocity.js';
 import Force from './Force.js';
+import { id } from './Utils.js';
 
 /**
  * A 2D particle object with mass, shape, position and velocity.
@@ -8,6 +9,7 @@ import Force from './Force.js';
  * @class
  */
 export default class Particle {
+  id;
   mass;
   shape;
   position;
@@ -27,6 +29,7 @@ export default class Particle {
    * @param {boolean} fixed Whether the Particle can move or not.
    */
   constructor(mass, shape, position = new Position(0, 0), velocity = new Velocity(0, 0), fixed = false) {
+    this.id = id();
     this.mass = mass;
     this.shape = shape;
     this.position = position;
@@ -90,5 +93,68 @@ export default class Particle {
    */
   get momentum() {
     return;
+  }
+
+  /**
+   * 
+   */
+  get left() {
+    return this.position.x - this.shape.width / 2;
+  }
+
+  /**
+   * 
+   */
+  get top() {
+    return this.position.y - this.shape.height / 2;
+  }
+
+  /**
+   * 
+   */
+  get right() {
+    return this.position.x + this.shape.width / 2;
+  }
+
+  /**
+   * 
+   */
+  get bottom() {
+    return this.position.y + this.shape.height / 2;
+  }
+
+  /**
+   * 
+   */
+  get topLeft() {
+    return new Position(this.left, this.top);
+  }
+
+  /**
+   * 
+   */
+  get topRight() {
+    return new Position(this.right, this.top);
+  }
+
+  /**
+   * 
+   */
+  get bottomLeft() {
+    return new Position(this.left, this.bottom);
+  }
+
+  /**
+   * 
+   */
+  get bottomRight() {
+    return new Position(this.right, this.bottom);
+  }
+
+  /**
+   * 
+   */
+  get corners() {
+    return [this.topLeft, this.topRight, this.bottomRight, this.bottomLeft];
   }
 }

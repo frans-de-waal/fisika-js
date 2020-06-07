@@ -104,8 +104,8 @@ export default class Scene {
   }
 
   loop = () => {
+    const { context, width, height, progress, draw, drawInterval } = this;
     try {
-      const { context, width, height, progress, draw, drawInterval } = this;
       context.clearRect(0, 0, width, height);
       progress();
       draw();
