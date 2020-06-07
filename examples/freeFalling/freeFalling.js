@@ -5,9 +5,6 @@ import {
   Force,
   Scene,
   Sphere,
-  Vector,
-  Velocity,
-  randomColor,
 } from '/js/index.js';
 
 export default function run() {

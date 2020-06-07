@@ -3,6 +3,10 @@
  * Live demo: https://frans-de-waal.github.io/fisika-js/
  */
 
+import {
+  Vector,
+} from '/js/index.js';
+
 // Canvas
 let WIDTH = 0;
 let HEIGHT = 0;
@@ -105,7 +109,7 @@ function reset() {
   pMouse = new Vector(WIDTH / 2, HEIGHT - 10);
 }
 
-function physics() {
+export default function run() {
   const canvas = document.getElementById('canvas');
   CTX = canvas.getContext('2d');
   WIDTH = canvas.getAttribute('width');
