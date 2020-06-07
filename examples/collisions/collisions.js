@@ -8,7 +8,7 @@ import {
   Vector,
   Velocity,
   randomColor,
-} from '/js/index.js';
+} from '../../js/index.js';
 
 function oneDimensionalCollision(v1, v2, m1, m2) {
   return (v1 * (m1 - m2) + 2 * m2 * v2) / (m1 + m2);

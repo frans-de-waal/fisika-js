@@ -5,7 +5,7 @@ import {
   Force,
   Scene,
   Sphere,
-} from '/js/index.js';
+} from '../../js/index.js';
 
 export default function run() {
   const scene = new Scene('canvas');
