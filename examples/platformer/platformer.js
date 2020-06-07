@@ -9,12 +9,16 @@ import {
   Velocity,
 } from '../../js/index.js';
 
+const girl = new Image();
+girl.src = '../../assets/sprites/adventure_girl/Run (1).png';
+
 export default function run() {
   const density = 1.2;
   let jump = false;
   let onFloor = false;
   let move = new Acceleration(0, 0);
   const scene = new Scene('canvas');
+  scene.scale = 80;
   const floor = new Particle(
     Number.MAX_SAFE_INTEGER,
     new Box(scene.width / scene.scale, 0.1, 'grey'),
@@ -22,15 +26,15 @@ export default function run() {
     new Velocity(0, 0),
     true
   );
-  const theGuy = new Particle(
+  const theGirl = new Particle(
     85,
-    new Box(0.73, 1.86, randomColor()),
+    new Box(1.1, 1.86, 'transparent', girl),
     new Position(2, 8.9),
     new Velocity(0, 0)
   );
   scene.entities = [
     floor,
-    theGuy,
+    theGirl,
   ];
   scene.progressEntity = entity => {
     const diff = entity.bottom - floor.top;
@@ -41,7 +45,7 @@ export default function run() {
     }
 
     // forces
-    let f = entity.drag(density);
+    let f = new Force(entity.drag(200).x, 0);
     if (jump) {
       f = f.add(new Force(0, -20000));
       jump = false;

@@ -2,7 +2,8 @@ import Position from './Position.js';
 
 export default class Shape {
   dragCoefficient;
-  color
+  color;
+  image;
 
   /**
    * Create a new Shape object.
@@ -12,9 +13,10 @@ export default class Shape {
    * @param {number} dragCoefficient The drag coefficient of the Shape.
    * @param {string} color The color of the Shape.
    */
-  constructor(dragCoefficient, color) {
+  constructor(dragCoefficient, color, image = null) {
     this.dragCoefficient = dragCoefficient;
     this.color = color;
+    this.image = image;
   }
 
   /**
@@ -48,8 +50,8 @@ export class Sphere extends Shape {
    * @param {number} radius The radius of the Sphere (m).
    * @param {string} color The color of the Sphere.
    */
-  constructor(radius, color) {
-    super(0.47, color);
+  constructor(radius, color, image = null) {
+    super(0.47, color, image);
     this.radius = radius;
   }
 
@@ -96,8 +98,8 @@ export class Box extends Shape {
    * 
    * @param {string} color The color of the Box.
    */
-  constructor(width, height, color) {
-    super(0.6, color);
+  constructor(width, height, color, image = null) {
+    super(0.6, color, image);
     this.width = width;
     this.height = height;
   }
@@ -119,8 +121,10 @@ export class Box extends Shape {
    */
   draw(scene, position) {
     const { context, scale } = scene;
-    const halfWidth = this.width / 2 * scale;
-    const halfHeight = this.height / 2 * scale;
+    const width = this.width * scale;
+    const height = this.height * scale;
+    const halfWidth = width / 2;
+    const halfHeight = height / 2;
     const x = position.x * scale;
     const y = position.y * scale;
     const corners = [
@@ -131,10 +135,14 @@ export class Box extends Shape {
     ];
     context.fillStyle = this.color;
     context.beginPath();
-    context.moveTo(corners[0].x, corners[0].y);
-    corners.splice(0, 1);
+    context.moveTo(corners[3].x, corners[3].y);
     corners.forEach(position => context.lineTo(position.x, position.y));
     context.fill();
     context.closePath();
+    if (this.image) {
+      this.image.width = width;
+      this.image.height = height;
+      context.drawImage(this.image, 200, 45, 330, 480, corners[0].x, corners[0].y, width, height);
+    }
   }
 }
