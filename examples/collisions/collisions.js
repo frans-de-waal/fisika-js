@@ -15,7 +15,7 @@ function oneDimensionalCollision(v1, v2, m1, m2) {
 }
 
 export default function run() {
-  const bounciness = 1;
+  const bounciness = 0.95;
   const density = 1.2;
   let mouse = new Position(0, 0);
   let mouseStart = new Position(0, 0);
@@ -26,22 +26,22 @@ export default function run() {
   scene.scale = 100; // pixels per meter
   scene.entities = [
     new Particle(
-      1,
-      new Sphere(0.25, randomColor()),
+      10,
+      new Sphere(0.5, `${randomColor()}AA`),
       new Position(1, 1),
-      new Velocity(2, 1)
+      new Velocity(4, 0)
     ),
     new Particle(
-      1,
-      new Sphere(0.25, randomColor()),
+      0.4,
+      new Sphere(0.2, `${randomColor()}AA`),
       new Position(6, 1),
-      new Velocity(-2, 0),
+      new Velocity(-4, 0),
     ),
   ];
   scene.progressEntity = (entity, index) => {
     // forces
-    const totalForce = new Force(0, 0);
-    // const totalForce = entity.drag(density);
+    // const totalForce = new Force(0, 0);
+    const totalForce = entity.drag(density);
     // acceleration
     const a = totalForce.multiply(1 / entity.mass)
       .add(gravity);
@@ -77,17 +77,22 @@ export default function run() {
     otherEntities.splice(index, 1);
     otherEntities.forEach(collisionEntity => {
       const relation = collisionEntity.position.subtract(entity.position);
+      const n = relation.normal;
       const distance = relation.size;
-      if (distance < entity.shape.radius + collisionEntity.shape.radius) {
+      const overlap = entity.shape.radius + collisionEntity.shape.radius - distance;
+      if (overlap >= 0) {
+        // scene.stop();
+
+        // move to initial touch positions
+        collisionEntity.position = collisionEntity.position.add(n.multiply(overlap / 2));
+        entity.position = entity.position.subtract(n.multiply(overlap / 2));
+
         /**
-         * resolve the collisions
+         * Resolve the collisions
          * @see https://imada.sdu.dk/~rolf/Edu/DM815/E10/2dcollisions.pdf
          */
 
-        // scene.stop();
-
         // find the collision surface normal and tangent unit vectors
-        const n = relation.normal;
         const t = new Vector(-n.y, n.x);
 
         // find the normal and tangent components of the two entity velocities before collision
@@ -103,8 +108,8 @@ export default function run() {
         const vp2t = vi2t;
 
         // find the new normal velocities after collision
-        const vp1n = oneDimensionalCollision(vi1n, vi2n, entity.mass, collisionEntity.mass);
-        const vp2n = oneDimensionalCollision(vi2n, vi1n, collisionEntity.mass, entity.mass);
+        const vp1n = oneDimensionalCollision(vi1n, vi2n, entity.mass, collisionEntity.mass) * bounciness;
+        const vp2n = oneDimensionalCollision(vi2n, vi1n, collisionEntity.mass, entity.mass) * bounciness;
 
         // convert the scalar normal and tangent (post collision) velocities to vectors
         const vp1nVector = n.multiply(vp1n);
@@ -115,19 +120,17 @@ export default function run() {
         // final velocities for each entity
         entity.velocity = vp1nVector.add(vp1tVector);
         collisionEntity.velocity = vp2nVector.add(vp2tVector);
-
-        scene.drawVector(entity.velocity, entity.position, 'blue');
-        scene.drawVector(collisionEntity.velocity, collisionEntity.position, 'blue');
+        // scene.drawVector(entity.velocity, entity.position, 'blue');
+        // scene.drawVector(collisionEntity.velocity, collisionEntity.position, 'blue');
       }
     });
   }
   scene.draw = () => {
-    scene.context.clearRect(0, 0, scene.width, scene.height);
     scene.drawGrid();
     scene.drawScale();
     scene.entities.forEach(entity => entity.draw(scene));
     if (dragging) {
-      scene.drawVector(mouse.subtract(mouseStart), mouseStart);
+      scene.drawVector(mouse.subtract(mouseStart), mouseStart, 'red');
     }
   }
   scene.start();
@@ -141,12 +144,14 @@ export default function run() {
     mouseStart = new Position(event.clientX - canvasRect.left, event.clientY - canvasRect.top);
     dragging = true;
   });
-  scene.canvas.addEventListener('mouseup', event => {
+  scene.canvas.addEventListener('mouseup', () => {
     if (dragging) {
       dragging = false;
+      const radius = Math.random() * 0.3 + 0.2;
+      const mass = 4 / 3 * Math.PI * radius ** 3 * 4;
       scene.entities.push(new Particle(
-        1,
-        new Sphere(0.25, randomColor()),
+        mass,
+        new Sphere(radius, `${randomColor()}AA`),
         mouseStart.multiply(1 / scene.scale),
         mouse.subtract(mouseStart).multiply(10 / scene.scale)
       ));

@@ -24,7 +24,7 @@ export default class Scene {
     entity.position = entity.position.add(dP);
   };
   entities = [];
-  interval;
+  drawInterval;
   scale = 50; // pixels per meter
   gridSize = 1; // meters
 
@@ -92,8 +92,7 @@ export default class Scene {
   }
 
   draw = () => {
-    const { context, width, height, drawGrid, drawScale, entities } = this;
-    context.clearRect(0, 0, width, height);
+    const { drawGrid, drawScale } = this;
     drawGrid();
     drawScale();
     entities.forEach(entity => entity.draw(this));
@@ -106,20 +105,23 @@ export default class Scene {
 
   loop = () => {
     try {
-      this.progress();
-      this.draw();
+      const { context, width, height, progress, draw, drawInterval } = this;
+      context.clearRect(0, 0, width, height);
+      progress();
+      draw();
     } catch (error) {
-      clearInterval(this.interval);
+      clearInterval(drawInterval);
       throw error;
     }
   }
 
   start = () => {
     this.draw();
-    this.interval = setInterval(this.loop, this.delta * 1000);
+    this.drawInterval = setInterval(this.loop, this.delta * 1000);
   }
 
   stop = () => {
-    clearInterval(this.interval);
+    clearInterval(this.drawInterval);
+    this.drawInterval = null;
   }
 }

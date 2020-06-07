@@ -6,9 +6,10 @@ Inspired by Burak Kanber's article [How Physics Engines Work](http://buildnewgam
 
 ## TODO
 
-- Fix gravity calculation
 - Fix (?) drag calculation
-- Complete collisions demo
+- Update collisions to:
+  - Better handle collisions of multiple entities
+  - Improve errors
 
 ## local server
 
