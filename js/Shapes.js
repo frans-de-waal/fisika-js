@@ -76,6 +76,14 @@ export class Sphere extends Shape {
     context.fill();
     context.closePath();
   }
+
+  get width() {
+    return this.radius * 2;
+  }
+
+  get height() {
+    return this.radius * 2;
+  }
 }
 
 export class Box extends Shape {
