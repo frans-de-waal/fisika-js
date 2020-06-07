@@ -1,0 +1,3 @@
+local server
+
+python -m http.server

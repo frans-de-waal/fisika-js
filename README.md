@@ -10,9 +10,3 @@ Inspired by Burak Kanber's article [How Physics Engines Work](http://buildnewgam
 - Update collisions to:
   - Better handle collisions of multiple entities
   - Improve errors
-
-## local server
-
-```shell
-python -m http.server
-```
