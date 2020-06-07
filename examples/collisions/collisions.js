@@ -22,7 +22,7 @@ export default function run() {
   let dragging = false;
   const gravity = new Acceleration(0, 9.81);
   const scene = new Scene('canvas');
-  scene.delta = 0.02; // seconds per tick
+  scene.delta = 0.01; // seconds per tick
   scene.scale = 100; // pixels per meter
   scene.entities = [
     new Particle(
@@ -120,8 +120,6 @@ export default function run() {
         // final velocities for each entity
         entity.velocity = vp1nVector.add(vp1tVector);
         collisionEntity.velocity = vp2nVector.add(vp2tVector);
-        // scene.drawVector(entity.velocity, entity.position, 'blue');
-        // scene.drawVector(collisionEntity.velocity, collisionEntity.position, 'blue');
       }
     });
   }

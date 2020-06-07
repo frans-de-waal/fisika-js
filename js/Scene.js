@@ -92,7 +92,7 @@ export default class Scene {
   }
 
   draw = () => {
-    const { drawGrid, drawScale } = this;
+    const { drawGrid, drawScale, entities } = this;
     drawGrid();
     drawScale();
     entities.forEach(entity => entity.draw(this));

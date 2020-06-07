@@ -1,12 +1,24 @@
-function run() {
+import {
+  Acceleration,
+  Particle,
+  Position,
+  Force,
+  Scene,
+  Sphere,
+  Vector,
+  Velocity,
+  randomColor,
+} from '/js/index.js';
+
+export default function run() {
   const scene = new Scene('canvas');
   scene.delta = 0.02;
   scene.scale = 50;
-  const redBall = new Sphere(0.10, 'red');
-  const greenBall = new Sphere(0.15, 'green');
+  const redBall = new Sphere(0.5, 'red');
+  const greenBall = new Sphere(0.75, 'green');
   scene.entities = [
-    new Particle(4, redBall, new Position(scene.width / 3, greenBall.radius)),
-    new Particle(14, greenBall, new Position(scene.width / 3 * 2, greenBall.radius)),
+    new Particle(4, redBall, new Position(3, 1)),
+    new Particle(14, greenBall, new Position(9, 1)),
   ];
   const gravity = new Acceleration(0, 9.81);
   const wind = new Force(-10, 0);
