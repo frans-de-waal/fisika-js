@@ -7,4 +7,4 @@ export { default as Scene } from './Scene.js';
 export { default as Shapes, Sphere, Box } from './Shapes.js';
 export { default as Vector } from './Vector.js';
 export { default as Velocity } from './Velocity.js';
-export { randomColor } from './Utils.js';
+export { randomColor, id, oneDimensionalCollision } from './Utils.js';
