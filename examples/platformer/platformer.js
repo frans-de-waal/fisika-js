@@ -13,7 +13,6 @@ const girl = new Image();
 girl.src = '../../assets/sprites/adventure_girl/Run (1).png';
 
 export default function run() {
-  const density = 1.2;
   let jump = false;
   let onFloor = false;
   let move = new Acceleration(0, 0);
@@ -45,7 +44,7 @@ export default function run() {
     }
 
     // forces
-    let f = new Force(entity.drag(200).x, 0);
+    let f = new Force(entity.drag(200).x, 0); // use super drag to slow the movement
     if (jump) {
       f = f.add(new Force(0, -20000));
       jump = false;

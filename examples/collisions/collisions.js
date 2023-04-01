@@ -2,7 +2,6 @@ import {
   Acceleration,
   Particle,
   Position,
-  Force,
   Scene,
   Sphere,
   Vector,
