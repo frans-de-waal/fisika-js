@@ -7,10 +7,10 @@ import {
   randomColor,
   Scene,
   Velocity,
-} from '../../js/index.js';
+} from '../../src/index.js';
 
 const girl = new Image();
-girl.src = '../../assets/sprites/adventure_girl/Run (1).png';
+girl.src = '../assets/sprites/adventure_girl/Run (1).png';
 
 export default function run() {
   let jump = false;

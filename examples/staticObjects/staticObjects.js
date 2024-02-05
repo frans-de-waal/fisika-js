@@ -10,7 +10,7 @@ import {
   Vector,
   randomColor,
   oneDimensionalCollision,
-} from '../../js/index.js';
+} from '../../src/index.js';
 
 export default function run() {
   const bounciness = 0.95;

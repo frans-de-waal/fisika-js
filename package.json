@@ -2,7 +2,11 @@
   "name": "fisika",
   "version": "0.1.0",
   "description": "A lightweight 2D physics engine",
-  "keywords": ["physics", "2D", "engine"],
+  "keywords": [
+    "physics",
+    "2D",
+    "engine"
+  ],
   "homepage": "https://frans-de-waal.github.io/fisika-js/",
   "bugs": {
     "url": "https://github.com/frans-de-waal/fisika-js/issues"
@@ -12,8 +16,20 @@
     "name": "Frans de Waal",
     "url": "https://fransdewaal.dev/"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frans-de-waal/fisika-js.git"
+  },
   "license": "Apache-2.0",
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "http-server ./"
+  },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "typescript": "^5.3.3"
   }
 }

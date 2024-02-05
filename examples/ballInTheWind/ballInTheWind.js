@@ -5,7 +5,7 @@
 
 import {
   Vector,
-} from '../../js/index.js';
+} from '../../src/index.js';
 
 // Canvas
 let WIDTH = 0;

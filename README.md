@@ -1,4 +1,4 @@
-# fisika-js
+# Fisika
 
 A lightweight 2D physics engine.
 
@@ -6,11 +6,13 @@ Inspired by Burak Kanber's article [How Physics Engines Work](http://buildnewgam
 
 ## Development
 
-Running a local server:
+Running the examples locally:
 
 ```bash
-python -m http.server
+npm run dev
 ```
+
+The example pages are served at [http://localhost:8080/examples/](http://localhost:8080/examples/).
 
 ## TODOs
 
