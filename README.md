@@ -1,6 +1,6 @@
 # fisika-js
 
-A lightwieght 2D physics engine.
+A lightweight 2D physics engine.
 
 Inspired by Burak Kanber's article [How Physics Engines Work](http://buildnewgames.com/gamephysics/).
 

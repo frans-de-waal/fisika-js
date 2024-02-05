@@ -1,7 +1,7 @@
 {
   "name": "fisika",
   "version": "0.1.0",
-  "description": "A lightwieght 2D physics engine",
+  "description": "A lightweight 2D physics engine",
   "keywords": ["physics", "2D", "engine"],
   "homepage": "https://frans-de-waal.github.io/fisika-js/",
   "bugs": {
