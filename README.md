@@ -1,8 +1,16 @@
 # fisika-js
 
-A simple 2D JavaScript physics engine.
+A lightwieght 2D physics engine.
 
 Inspired by Burak Kanber's article [How Physics Engines Work](http://buildnewgames.com/gamephysics/).
+
+## Development
+
+Running a local server:
+
+```bash
+python -m http.server
+```
 
 ## TODOs
 
