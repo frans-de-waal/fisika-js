@@ -72,12 +72,12 @@ export default class Scene {
   }
 
   drawVector(vector, position, color = 'blue') {
-    const headlen = vector.size * 0.25 * this.scale;
+    const headlen = vector.size * 0.25;
     const end = position.add(vector);
-    const fromx = position.x * this.scale;
-    const fromy = position.y * this.scale;
-    const tox = end.x * this.scale;
-    const toy = end.y * this.scale;
+    const fromx = position.x;
+    const fromy = position.y;
+    const tox = end.x;
+    const toy = end.y;
     const dx = tox - fromx;
     const dy = toy - fromy;
     const angle = Math.atan2(dy, dx);

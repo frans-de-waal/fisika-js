@@ -13,7 +13,7 @@ import {
 export default function run() {
   const bounciness = 0.95;
   const density = 1.2;
-  let mouse = new Position(0, 0);
+  let mouseCurrent = new Position(0, 0);
   let mouseStart = new Position(0, 0);
   let dragging = false;
   const gravity = new Acceleration(0, 9.81);
@@ -23,17 +23,18 @@ export default function run() {
   scene.entities = [
     new Particle(
       10,
-      new Sphere(0.5, `${randomColor()}AA`),
+      new Sphere(0.5, randomColor('AA')),
       new Position(1, 1),
       new Velocity(4, 0)
     ),
     new Particle(
       0.4,
-      new Sphere(0.2, `${randomColor()}AA`),
+      new Sphere(0.2, randomColor('AA')),
       new Position(6, 1),
       new Velocity(-4, 0),
     ),
   ];
+
   scene.progressEntity = (entity, index) => {
     // forces
     // const totalForce = new Force(0, 0);
@@ -119,19 +120,21 @@ export default function run() {
       }
     });
   }
+
   scene.draw = () => {
     scene.drawGrid();
     scene.drawScale();
     scene.entities.forEach(entity => entity.draw(scene));
     if (dragging) {
-      scene.drawVector(mouse.subtract(mouseStart), mouseStart, 'red');
+      scene.drawVector(mouseCurrent.subtract(mouseStart), mouseStart, 'red');
     }
   }
+
   scene.start();
 
   scene.canvas.addEventListener('mousemove', event => {
     const canvasRect = scene.canvas.getBoundingClientRect();
-    mouse = new Position(event.clientX - canvasRect.left, event.clientY - canvasRect.top);
+    mouseCurrent = new Position(event.clientX - canvasRect.left, event.clientY - canvasRect.top);
   });
   scene.canvas.addEventListener('mousedown', event => {
     const canvasRect = scene.canvas.getBoundingClientRect();
@@ -145,9 +148,9 @@ export default function run() {
       const mass = 4 / 3 * Math.PI * radius ** 3 * 4;
       scene.entities.push(new Particle(
         mass,
-        new Sphere(radius, `${randomColor()}AA`),
+        new Sphere(radius, randomColor('AA')),
         mouseStart.multiply(1 / scene.scale),
-        mouse.subtract(mouseStart).multiply(10 / scene.scale)
+        mouseCurrent.subtract(mouseStart).multiply(10 / scene.scale)
       ));
     }
   });
